@@ -1,0 +1,266 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <windows.h>szcacv
+
+void gotoxy( int column, int line )
+{
+    COORD coord;
+    coord.X = column;
+    coord.Y = line;
+    SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),coord);
+}
+
+struct newContact
+{
+    int id;
+    char name[21];
+    struct newConatact *next;
+};
+
+struct newContact *head=NULL;
+struct newContact *tail=NULL;
+
+struct phoneNumber
+{
+    int id;
+    char number[12];
+    struct phoneNumber *next;
+};
+
+struct phoneNumber *headPhone = NULL;
+struct phoneNumber *tailPhone = NULL;
+
+void appendNewContact(int id, char name[])
+{
+    struct newContact *contactTemp;
+    contactTemp = (struct newContact*)malloc(sizeof(struct newContact));
+    contactTemp->id = id;
+    strcpy(contactTemp->name,name);
+    if(head == NULL)
+    {
+        head = tail = contactTemp;
+        contactTemp->next = NULL;
+    }
+    else
+    {
+        contactTemp->next = NULL;
+        tail ->next = contactTemp;
+        tail = contactTemp;
+    }
+}
+
+void appendPhoneNumber(int id, char number[])
+{
+    struct phoneNumber* numberTemp;
+    numberTemp = (struct phoneNumber*)malloc(sizeof(struct phoneNumber));
+    numberTemp ->id = id;
+    strcpy(numberTemp->number,number);
+
+    if(headPhone == NULL)
+    {
+        headPhone = tailPhone = numberTemp;
+        numberTemp->next = NULL;
+    }
+    else
+    {
+        numberTemp->next = NULL;
+        tailPhone->next = numberTemp;
+        tailPhone = numberTemp;
+    }
+}
+
+void appendPhoneBook(int id)
+{
+    // variable of name or phone
+    char name[21];
+    char number[12];
+    int timesToadd;
+
+    puts("please enter the name : ");
+    gets(name);
+
+    if(strlen(name) >10 && strlen(name) <= 20)
+    {
+        printf("how many phone number you want to add? ");
+        scanf("%i", &timesToadd);
+        for(int i = 0; i<timesToadd; i++)
+        {
+            printf("please enter the phone number : ");
+            scanf("%s", &number);
+            while(strlen(number ) != 11)
+            {
+                printf("Oops... The number must be 11 digits! \n");
+                printf("please enter the phone number : ");
+                scanf("%s", &number);
+            }
+            if(checkNumberExisting(number)==1)
+            {
+                printf("SOoory this phone is already Exist...");
+                return;
+            }
+            else
+            {
+                if(i == 0)
+                {
+                    appendNewContact(id, name);
+                    appendPhoneNumber(id, number);
+                }
+                else
+                    appendPhoneNumber(id, number);
+            }
+        }
+    }
+    else
+    {
+        printf("Oops... The length must be between 10 and 20! \n");
+        return appendPhoneBook(id);
+    }
+}
+
+void displayPhoneNumber(int id)
+{
+    struct phoneNumber *temp2 = headPhone;
+    while(temp2!= NULL)
+    {
+        if(temp2->id == id)
+        {
+            printf("the number is : %s ", temp2->number);
+            printf("\n");
+        }
+        temp2=temp2->next;
+
+    }
+}
+
+int checkNumberExisting(char number[])
+{
+    struct phoneNumber* temp = headPhone;
+    while(temp!= NULL)
+    {
+        if(strcmp(temp->number, number)==0)
+            return 1;
+
+        temp = temp->next;
+    }
+    return 0;
+}
+
+void displayPhoneBook()
+{
+    int id;
+    struct newContact *temp= head;
+    while(temp!= NULL)
+    {
+        printf("the name is : %s ", temp->name);
+        printf("\n");
+        id = temp->id;
+        displayPhoneNumber(id);
+        printf("******************************************");
+        printf("\n");
+        temp=temp->next;
+    }
+}
+
+void searchByName(char name[])
+{
+    struct newContact * temp = head;
+    while(temp !=NULL)
+    {
+        if(strcmp(temp->name,name)==0)
+        {
+            printf("The name is found : %s", temp->name);
+            printf("\n");
+            displayPhoneNumber(temp->id);
+            return;
+        }
+        temp = temp->next;
+    }
+
+    printf("The name is not found");
+}
+void searchByPhone(char number[])
+{
+    struct phoneNumber * temp = headPhone;
+    struct newContact * tempName = head;
+    int id;
+    while(temp !=NULL)
+    {
+        if(strcmp(temp->number,number)==0)
+        {
+            id=temp->id;
+            if(tempName->id == temp->id)
+            {
+                printf("The name is  : %s", tempName->name);
+                printf("\n");
+            }
+            printf("The Phone is found : %s ", temp->number);
+            printf("\n");
+            return;
+        }
+        temp = temp->next;
+    }
+
+    printf("The name is not found");
+}
+
+int getId(char number[])
+{
+    int id;
+    struct phoneNumber * temp = headPhone;
+    while(temp!= NULL)
+    {
+        if(temp->number == number)
+        {
+            id= temp->id;
+            return id;
+        }
+        temp = temp->next;
+    }
+}
+
+/*void deleteByPhone(char number[])
+{
+    int id = getId(number);
+
+   // struct phoneNumber * temp = searchByID(getId(number));
+   struct phoneNumber * temp = headPhone->next;
+   struct phoneNumber * prev = headPhone;
+
+    if(prev == NULL)
+        //return 0;
+        {printf("this phone is not exist");
+        return;}
+
+    if(headPhone == tailPhone)
+        headPhone = tailPhone = NULL;
+
+    else if(prev == head)
+    {
+        head=prev->next;
+    }
+    else if(prev == tail)
+    {
+        tail->next=NULL;
+    }
+    else
+    {
+        temp->prev->next = temp->next;
+        temp->next->prev = temp->prev;
+    }
+    free(temp);
+    return 1;
+}*/
+struct phoneNumber* searchByID(int id)
+{
+    struct phoneNumber * temp = headPhone;
+    while(temp!= NULL)
+    {
+        if(temp->id == id)
+            return temp;
+        temp = temp->next;
+    }
+    return NULL;
+}
+
+

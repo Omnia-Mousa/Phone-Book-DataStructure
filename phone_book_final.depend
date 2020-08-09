@@ -1,0 +1,55 @@
+# depslib dependency file v1.0
+1575260577 source:f:\sd\datastructre\phone_book_final\phone_book_final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575260577 source:f:\sd\datastructre\phone_book_final\phone_book_final\phone_book_fun.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575260577 source:c:\users\omnia ahmed\desktop\data structure project\final with delete&search&modify\phone_book_final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575325611 source:c:\users\omnia ahmed\desktop\data structure project\final with delete&search&modify\phone_book_final\phone_book_fun.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575325611 source:c:\users\omnia ahmed\desktop\data structure project\final project\phone_book_final\phone_book_fun.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575326092 source:f:\github\phonebook datastrucure\phone_book_final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575325611 source:f:\github\phonebook datastrucure\phone_book_final\phone_book_fun.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575326092 source:f:\github\phonebook data structure\phone_book_final\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
+1575325611 source:f:\github\phonebook data structure\phone_book_final\phone_book_fun.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<windows.h>
+
